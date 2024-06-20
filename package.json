@@ -9,16 +9,36 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
+    "@ckeditor/ckeditor5-react": "^6.2.0",
+    "@dnd-kit/core": "^6.1.0",
+    "@dnd-kit/modifiers": "^7.0.0",
+    "@dnd-kit/sortable": "^8.0.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "axios": "^1.7.2",
+    "ckeditor5-custom-build": "file:./ckeditor5",
+    "classnames": "^2.5.1",
+    "cookie": "^0.6.0",
+    "framer-motion": "^11.1.7",
+    "next": "14.2.3",
     "react": "^18",
+    "react-color-palette": "^7.1.1",
     "react-dom": "^18",
-    "next": "14.2.3"
+    "react-icons": "^5.2.1",
+    "sass": "^1.77.1",
+    "sass-loader": "^14.2.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/cookie": "^0.6.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.8",
     "eslint": "^8",
-    "eslint-config-next": "14.2.3"
+    "eslint-config-next": "14.2.3",
+    "typescript": "^5"
   }
 }

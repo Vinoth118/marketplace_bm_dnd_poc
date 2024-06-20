@@ -8,8 +8,10 @@
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
+    "downlevelIteration": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noErrorTruncation": true,
     "jsx": "preserve",
     "incremental": true,
     "plugins": [
