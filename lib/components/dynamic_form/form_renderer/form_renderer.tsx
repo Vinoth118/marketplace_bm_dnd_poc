@@ -21,7 +21,7 @@ const DynamicFormRenderrer = forwardRef<{ getFormData: () => DynamicFormAnswerDa
             temp[index].value = event.target.value;
         } else {
             const templateItem = template.find(e => e.id == elementId)!;
-            temp.push({ id: templateItem.id, inputName: templateItem.settings.inputName, value: event.target.value })
+            temp.push({ id: templateItem.id, inputName: templateItem.settings.inputName, elementType: templateItem.type, customId: templateItem.settings.customId, value: event.target.value })
         }
         setAnswerData(temp)
     }
@@ -33,7 +33,7 @@ const DynamicFormRenderrer = forwardRef<{ getFormData: () => DynamicFormAnswerDa
             temp[index].value = event.target.checked;
         } else {
             const templateItem = template.find(e => e.id == elementId)!;
-            temp.push({ id: templateItem.id, inputName: templateItem.settings.inputName, value: event.target.checked })
+            temp.push({ id: templateItem.id, inputName: templateItem.settings.inputName, elementType: templateItem.type, customId: templateItem.settings.customId, value: event.target.checked })
         }
         setAnswerData(temp)
     }
@@ -45,7 +45,7 @@ const DynamicFormRenderrer = forwardRef<{ getFormData: () => DynamicFormAnswerDa
             temp[index].value = event.target.checked ? [...(temp[index] as MultiCheckboxElementAnswerData).value, valueId] : (temp[index] as MultiCheckboxElementAnswerData).value.filter(e => e != valueId)
         } else {
             const templateItem = template.find(e => e.id == elementId)!;
-            temp.push({ id: templateItem.id, inputName: templateItem.settings.inputName, value: event.target.checked ? [valueId] : [] })
+            temp.push({ id: templateItem.id, inputName: templateItem.settings.inputName, elementType: templateItem.type, customId: templateItem.settings.customId, value: event.target.checked ? [valueId] : [] })
         }
         setAnswerData(temp)
     }
@@ -55,8 +55,9 @@ const DynamicFormRenderrer = forwardRef<{ getFormData: () => DynamicFormAnswerDa
     }, [answerData]);
 
     const onClickSubmit = () => {
-        onSubmit(answerData);
-        return answerData;
+        const submitData = answerData.filter(item => template.findIndex(e => e.id == item.id) > -1);
+        onSubmit(submitData);
+        return submitData;
     }
 
     return (
@@ -89,7 +90,7 @@ const DynamicFormRenderrer = forwardRef<{ getFormData: () => DynamicFormAnswerDa
                             }
                             case 'CHECKBOX': {
                                 const isChecked = (answer as CheckboxElementAnswerData['value']) ?? false
-                                return <FormControl key = {element.id}>
+                                return <FormControl key = {element.id} my = '10px'>
                                     <Checkbox isChecked = {isChecked} onChange={e => onChangeCheckboxElement(e, element.id)} defaultChecked>{element.settings.inputName}</Checkbox>
                                 </FormControl>
                             }

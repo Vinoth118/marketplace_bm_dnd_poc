@@ -4,7 +4,7 @@ export type ImageSectionWidgetAnswerData = {
     list: { path: string }[]
 }
 
-export type ImageCarouselWidgetData = {
+export type ImageCarouselWidgetAnswerData = {
     list: (ImageSectionWidgetAnswerData['list'][1] & {
         navigateTo: string
     })[]
@@ -31,10 +31,18 @@ export type FeatureWithIconWidgetAnswerData = {
     }[]
 }
 
+export type FeatureWithIconControlledWidgetAnswerData = {
+    answers: string[]
+}
+
 export type DetailsWithIconWidgetAnswerData = {
     list: (FeatureHighlighterWidgetAnswerData['list'][1] & {
         path: string,
     })[]
+}
+
+export type DetailsWithIconControlledWidgetAnswerData = {
+    answers: { id: string, content: string }[]
 }
 
 export type ListingBasicInfoWidgetAnswerData = {
@@ -65,11 +73,13 @@ export type DynamicFormWidgetAnswerData = {
 export type WidgetAnswer = {
     id: string,
     data: ImageSectionWidgetAnswerData | 
-        ImageCarouselWidgetData |
+        ImageCarouselWidgetAnswerData |
         ExpandableWidgetAnswerData |
         FeatureHighlighterWidgetAnswerData |
         FeatureWithIconWidgetAnswerData |
+        FeatureWithIconControlledWidgetAnswerData |
         DetailsWithIconWidgetAnswerData |
+        DetailsWithIconControlledWidgetAnswerData |
         ListingBasicInfoWidgetAnswerData |
         ListingCarouselWidgetAnswerData |
         CustomContentWidgetAnswerData | 

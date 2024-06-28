@@ -18,7 +18,7 @@ const TextElementForm = forwardRef<{ getFormData: () => TextElement['settings'] 
 
     const onChangeColor = (color: string) => setData(prev => ({ ...prev, fontColor: color }))
 
-    const onChangeInput = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>, input: 'inputName' | 'inputPlaceholder' | 'fontSize' | 'align') => {
+    const onChangeInput = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>, input: 'inputName' | 'inputPlaceholder' | 'fontSize' | 'align' | 'customId') => {
         setData(prev => ({ ...prev, [input]: event.target.value }))
     }
 
@@ -33,6 +33,11 @@ const TextElementForm = forwardRef<{ getFormData: () => TextElement['settings'] 
 
     return (
         <Flex w = '100%' direction={'column'} gap = '10px'>
+            <FormControl>
+                <FormLabel>Custom identifier</FormLabel>
+                <Input value = {data.customId} onChange={(e) => onChangeInput(e, 'customId')} />
+                <FormErrorMessage></FormErrorMessage>
+            </FormControl>
             <FormControl>
                 <FormLabel>Input name</FormLabel>
                 <Input value = {data.inputName} onChange={(e) => onChangeInput(e, 'inputName')} />

@@ -1,5 +1,5 @@
 import { Flex, FormControl, FormLabel, Text, Input, Progress, Icon, Button, IconButton } from "@chakra-ui/react";
-import { ImageCarouselWidgetData, WidgetAnswer } from "../types";
+import { ImageCarouselWidgetAnswerData, WidgetAnswer } from "../types";
 import { ChangeEvent, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { covertImageWidgetDataToStateDataType, getWidgetDefaultAnsweData } from ".";
 import { v4 as uuidv4 } from 'uuid';
@@ -7,14 +7,14 @@ import ImageFormListWithDND, { ConditionalImageItem } from "../../image_list_wit
 import UploadImagesContainer from "../../image-upload-container";
 
 type ImageCarouselFormProps = {
-    initialData?: ImageCarouselWidgetData,
-    onSubmit: (data: ImageCarouselWidgetData) => void
+    initialData?: ImageCarouselWidgetAnswerData,
+    onSubmit: (data: ImageCarouselWidgetAnswerData) => void
 }
 
 const ImageCarouselForm = forwardRef<{ getFormData: () => WidgetAnswer['data'] | null }, ImageCarouselFormProps>(({ initialData, onSubmit }, forwardedRef) => {
-    const [data, setData] = useState({ list: covertImageWidgetDataToStateDataType([...(initialData?.list ?? (getWidgetDefaultAnsweData('IMAGE_CAROUSEL') as ImageCarouselWidgetData)?.list)]).map(e => ({ ...e, id: uuidv4() })) })
+    const [data, setData] = useState({ list: covertImageWidgetDataToStateDataType([...(initialData?.list ?? (getWidgetDefaultAnsweData('IMAGE_CAROUSEL') as ImageCarouselWidgetAnswerData)?.list)]).map(e => ({ ...e, id: uuidv4() })) })
 
-    useEffect(() => setData({ list: covertImageWidgetDataToStateDataType([...(initialData?.list ?? (getWidgetDefaultAnsweData('IMAGE_CAROUSEL') as ImageCarouselWidgetData)?.list)]).map(e => ({ ...e, id: uuidv4() })) }), [initialData])
+    useEffect(() => setData({ list: covertImageWidgetDataToStateDataType([...(initialData?.list ?? (getWidgetDefaultAnsweData('IMAGE_CAROUSEL') as ImageCarouselWidgetAnswerData)?.list)]).map(e => ({ ...e, id: uuidv4() })) }), [initialData])
 
     const onChangeItemValue = (event: ChangeEvent<HTMLInputElement>, itemId: string, type: 'IMAGE_URL' | 'ADDITIONAL_FIELD_1' | 'ADDITIONAL_FIELD_2') => {
         setData(prev => ({
@@ -38,7 +38,7 @@ const ImageCarouselForm = forwardRef<{ getFormData: () => WidgetAnswer['data'] |
     const onUploadComplete = (items: { path: string, id: string }[]) => setData(prev => ({ ...prev, list: [...prev.list, ...items.map(e => ({ path: e.path, additional_field_1: '', additional_field_2: '', id: e.id }))] }));
 
     const onClickSubmit = () => {
-        const submitData: ImageCarouselWidgetData = JSON.parse(JSON.stringify(data))
+        const submitData: ImageCarouselWidgetAnswerData = JSON.parse(JSON.stringify(data))
         submitData.list = data.list.filter(e => e.path.trim() != '').map(({ path, additional_field_1 }) => ({ path, navigateTo: additional_field_1 }));
         onSubmit(submitData);
         return submitData;

@@ -57,7 +57,7 @@ const DetailsWithIconForm = forwardRef<{ getFormData: () => WidgetAnswer['data']
                 onChangeItemValue={onChangeItemValue} 
                 onRemoveItem={onRemoveItem} 
                 aditionalField1Label="Heading"
-                aditionalField2Label="Conent"
+                aditionalField2Label="Content"
             />
             <UploadImagesContainer 
                 showAddItemButton

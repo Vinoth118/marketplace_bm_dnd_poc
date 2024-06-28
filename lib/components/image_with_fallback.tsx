@@ -13,13 +13,13 @@ const NextImageWithFallback = (props: ImageProps & { fallbackSrc?: string, loadi
     }, [src, fallbackSrc, loadingSpinner]);
 
     return (
-        <Flex w = '100%' h = '100%'>
+        <Flex w = '100%' h = '100%' position={'relative'}>
             <Flex display={loadingSpinner != false && isLoaded == false ? 'flex' : 'none'} position={'absolute'} left = '50%' top = {'50%'} transform={'translate(-50%, -50%)'}  zIndex={9} w = {rest.width} h = {rest.height} ><Spinner w = '40px' h = '40px' thickness="4px" /></Flex>
             <Image
                 {...rest}
                 src={imgSrc}
                 onError={() => setImgSrc(fallbackSrc)}
-                onLoadingComplete={() => setLoaded(true)}
+                onLoad={() => setLoaded(true)}
             />
         </Flex>
     );

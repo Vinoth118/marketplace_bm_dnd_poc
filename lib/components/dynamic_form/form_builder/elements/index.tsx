@@ -81,6 +81,7 @@ export {
 export const getElementDefaultSettings = (element: DynamicFormElementType): DynamicFormTemplate[1]['settings'] => {
     const defaultSettings: ElementBasicSettings = {
         inputName: 'Input name',
+        customId: uuidv4(),
         inputPlaceholder: 'Input placeholder',
         fontSize: 14,
         fontColor: 'black',

@@ -1,5 +1,5 @@
 import { Flex, FormControl, FormLabel, FormErrorMessage, Input, IconButton, Icon } from "@chakra-ui/react";
-import { ImageCarouselWidgetData, ImageSectionWidgetAnswerData, WidgetAnswer } from "../types";
+import { ImageCarouselWidgetAnswerData, ImageSectionWidgetAnswerData, WidgetAnswer } from "../types";
 import { ChangeEvent, forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { covertImageWidgetDataToStateDataType, getWidgetDefaultAnsweData } from ".";
 import { Active, defaultDropAnimationSideEffects, DndContext, DragCancelEvent, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, DropAnimation, KeyboardSensor, MeasuringStrategy, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";

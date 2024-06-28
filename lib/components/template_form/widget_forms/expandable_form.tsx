@@ -28,7 +28,7 @@ const ExpandableForm = forwardRef<{ getFormData: () => WidgetAnswer['data'] | nu
 
     const onClickSubmit = () => {
         const submitData: ExpandableWidgetAnswerData = JSON.parse(JSON.stringify(data))
-        submitData.list = data.list.filter(e => e.field_1.trim() != '' && e.field_2.trim() != '').map(({ field_1, field_2 }) => ({ inner: field_1, outer: field_2 }));
+        submitData.list = data.list.filter(e => e.field_1.trim() != '' && e.field_2.trim() != '').map(({ field_1, field_2 }) => ({ outer: field_1, inner: field_2 }));
         onSubmit(submitData);
         return submitData;
     }

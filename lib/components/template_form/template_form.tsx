@@ -105,7 +105,7 @@ const TemplateFormRenderrer = ({ template, initialData, onSubmit }: TemplateForm
                                                 return <WidgetSkeleton 
                                                     key = {widget.id} 
                                                     widget = {widget.type}  
-                                                    customWidgetName = {customName}
+                                                    customWidgetName = {customName && customName.trim() != '' ? customName : null}
                                                     headerElement = {
                                                         <Flex mr = '10px' h = 'inherit' alignItems={'center'} gap = '5px'>
                                                             <IconButton 

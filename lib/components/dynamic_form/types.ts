@@ -1,6 +1,7 @@
 export type DynamicFormElementType = 'TEXT' | 'CHECKBOX' | 'MULTI_CHECKBOX' | 'SELECT'
 
 export type ElementBasicSettings = {
+    customId: string,
     inputName: string,
     inputPlaceholder: string,
     fontSize: number,
@@ -60,6 +61,8 @@ export type DynamicFormTemplate = (
 export type DynamicFormElementAnswerData = {
     id: string,
     inputName: string,
+    elementType: DynamicFormElementType,
+    customId: string,
     value: any
 }
 

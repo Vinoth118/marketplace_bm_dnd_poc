@@ -1,6 +1,6 @@
 import { RefObject } from "react";
-import { CustomContentWidgetAnswerData, DetailsWithIconWidgetAnswerData, DynamicFormWidgetAnswerData, ExpandableWidgetAnswerData, FeatureHighlighterWidgetAnswerData, FeatureWithIconWidgetAnswerData, ImageCarouselWidgetData, ImageSectionWidgetAnswerData, ListingBasicInfoWidgetAnswerData, ListingCarouselWidgetAnswerData, WidgetAnswer } from "../types";
-import { DynamicFormWidgetData, Template, Widget } from "../../listing_template_builder/builder_types";
+import { CustomContentWidgetAnswerData, DetailsWithIconControlledWidgetAnswerData, DetailsWithIconWidgetAnswerData, DynamicFormWidgetAnswerData, ExpandableWidgetAnswerData, FeatureHighlighterWidgetAnswerData, FeatureWithIconControlledWidgetAnswerData, FeatureWithIconWidgetAnswerData, ImageCarouselWidgetAnswerData, ImageSectionWidgetAnswerData, ListingBasicInfoWidgetAnswerData, ListingCarouselWidgetAnswerData, WidgetAnswer } from "../types";
+import { DetailsWithIconControlledWidgetData, DynamicFormWidgetData, FeatureWithIconControlledWidgetData, Template, Widget } from "../../listing_template_builder/builder_types";
 import ExpandableForm from "./expandable_form";
 import DetailsWithIconForm from "./details_with_icon_form";
 import CustomContentForm from "./custom_content_form";
@@ -11,6 +11,8 @@ import ImageCarouselForm from "./image_carousel_form";
 import ListingBasicInfoForm from "./listing_basic_info_form";
 import ListingCarouselForm from "./listing_carousel_form";
 import DynamicFormWidgetForm from "./dynamic_form_widget_form";
+import DetailsWithIconControlledForm from "./details_with_icon_controlled_form";
+import FeatureWithIconControlledForm from "./feature_with_icon_controlled_form";
 
 const sampleImagesData = [
     {
@@ -51,12 +53,14 @@ export const getWidgetDefaultAnsweData = (widget: Widget['type']): WidgetAnswer[
             aditional_info: []
         }
         case 'CUSTOM_CONTENT': return { content: '' }
-        case 'CUSTOM_CONTENT': return { answers: [] }
+        case 'DYNAMIC_FORM': return { answers: [] }
+        case 'DETAILS_WITH_ICON_CONTROLLED': return { answers: [] }
+        case 'FEATURE_WITH_ICON_CONTROLLED': return { answers: [] }
         default: return { list: [] }
     }
 }
 
-export const covertImageWidgetDataToStateDataType = (list: ImageSectionWidgetAnswerData['list'] | ImageCarouselWidgetData['list'] | DetailsWithIconWidgetAnswerData['list'] | FeatureWithIconWidgetAnswerData['list']) => {
+export const covertImageWidgetDataToStateDataType = (list: ImageSectionWidgetAnswerData['list'] | ImageCarouselWidgetAnswerData['list'] | DetailsWithIconWidgetAnswerData['list'] | FeatureWithIconWidgetAnswerData['list']) => {
     const type = list.length < 1 ? 'IMAGE_SECTION' : 
         'navigateTo' in list?.[0] ? 'IMAGE_CAROUSEL' : 
         'feature' in list?.[0] ? 'FEATURE_WITH_ICON' :
@@ -64,7 +68,7 @@ export const covertImageWidgetDataToStateDataType = (list: ImageSectionWidgetAns
     
     switch(type) {
         case 'IMAGE_SECTION': return list.map(item => ({ path: item.path, additional_field_1: '', additional_field_2: '' }));
-        case 'IMAGE_CAROUSEL': return (list as ImageCarouselWidgetData['list']).map(item => ({ path: item.path, additional_field_1: item.navigateTo , additional_field_2: '' }));
+        case 'IMAGE_CAROUSEL': return (list as ImageCarouselWidgetAnswerData['list']).map(item => ({ path: item.path, additional_field_1: item.navigateTo , additional_field_2: '' }));
         case 'FEATURE_WITH_ICON': return (list as FeatureWithIconWidgetAnswerData['list']).map(item => ({ path: item.path, additional_field_1: item.feature , additional_field_2: '' }));
         case 'DETAILS_WITH_ICON': return (list as DetailsWithIconWidgetAnswerData['list']).map(item => ({ path: item.path, additional_field_1: item.heading , additional_field_2: item.content }));
     }
@@ -91,11 +95,13 @@ const WidgetForm = ({ initialAnswerData, widgetData, type, forwardedRef }: Widge
         case 'CONTACT':
         case 'CUSTOM_CONTENT': return <CustomContentForm initialData={initialAnswerData as CustomContentWidgetAnswerData} onSubmit={e => {}} ref = {forwardedRef} />;
         case 'DETAILS_WITH_ICON': return <DetailsWithIconForm initialData={initialAnswerData as DetailsWithIconWidgetAnswerData} onSubmit={e => {}} ref = {forwardedRef} />;
+        case 'DETAILS_WITH_ICON_CONTROLLED': return <DetailsWithIconControlledForm initialData={initialAnswerData as DetailsWithIconControlledWidgetAnswerData} widgetData={widgetData as DetailsWithIconControlledWidgetData} onSubmit={e => {}} ref = {forwardedRef} />;
         case 'EXPANDABLE': return <ExpandableForm initialData={initialAnswerData as ExpandableWidgetAnswerData} onSubmit={e => {}} ref = {forwardedRef} />;
         case 'FEATURE_HIGHLIGHTER': return <FeatureHighlighterForm initialData={initialAnswerData as FeatureHighlighterWidgetAnswerData} onSubmit={e => {}} ref = {forwardedRef} />;
         case 'FEATURE_WITH_ICON': return <FeatureWithIconForm initialData={initialAnswerData as FeatureWithIconWidgetAnswerData} onSubmit={e => {}} ref = {forwardedRef} />;
+        case 'FEATURE_WITH_ICON_CONTROLLED': return <FeatureWithIconControlledForm initialData={initialAnswerData as FeatureWithIconControlledWidgetAnswerData} widgetData={widgetData as FeatureWithIconControlledWidgetData} onSubmit={e => {}} ref = {forwardedRef} />;
         case 'IMAGE_SECTION': return <ImageSectionForm initialData={initialAnswerData as ImageSectionWidgetAnswerData} onSubmit={e => {}} ref = {forwardedRef} />;
-        case 'IMAGE_CAROUSEL': return <ImageCarouselForm initialData={initialAnswerData as ImageCarouselWidgetData} onSubmit={e => {}} ref = {forwardedRef} />;
+        case 'IMAGE_CAROUSEL': return <ImageCarouselForm initialData={initialAnswerData as ImageCarouselWidgetAnswerData} onSubmit={e => {}} ref = {forwardedRef} />;
         case 'LISTING_BASIC_INFO': return <ListingBasicInfoForm initialData={initialAnswerData as ListingBasicInfoWidgetAnswerData} onSubmit={e => {}} ref = {forwardedRef} />;
         case 'LISTING_CAROUSEL': return <ListingCarouselForm initialData={initialAnswerData as ListingCarouselWidgetAnswerData} onSubmit={e => {}} ref = {forwardedRef} />;
         case 'DYNAMIC_FORM': return <DynamicFormWidgetForm initialData={initialAnswerData as DynamicFormWidgetAnswerData} widgetData={widgetData as DynamicFormWidgetData} onSubmit={e => {}} ref = {forwardedRef} />;
@@ -114,4 +120,6 @@ export {
     ListingCarouselForm,
     DetailsWithIconForm,
     CustomContentForm,
+    DetailsWithIconControlledForm,
+    FeatureWithIconControlledForm
 }

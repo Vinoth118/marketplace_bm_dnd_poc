@@ -1,7 +1,7 @@
 "use client"
 import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, FlexProps, Heading, Icon, IconButton, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spacer, useRadioGroup } from "@chakra-ui/react";
 import { Template, Widget } from './builder_types';
-import { DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent, DragOverEvent, DragStartEvent, TouchSensor, DragOverlay, Active, MeasuringStrategy, DropAnimation, defaultDropAnimationSideEffects } from '@dnd-kit/core';
+import { DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent, DragOverEvent, DragStartEvent, TouchSensor, DragOverlay, Active, MeasuringStrategy, DropAnimation, defaultDropAnimationSideEffects, pointerWithin } from '@dnd-kit/core';
 import { AnimateLayoutChanges, arrayMove, defaultAnimateLayoutChanges, horizontalListSortingStrategy, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { PropsWithChildren,useRef, useState } from "react";
 import { FaRegTrashCan } from "react-icons/fa6";
@@ -272,7 +272,7 @@ const ListingTemplateBuilder = ({ initialData, onSubmit }: ListingTemplateBuilde
             temp.data[overRowIndex].columns[overColumnIndex].widgets = arrayMove(temp.data[overRowIndex].columns[overColumnIndex].widgets, activeIndex, overIndex).filter(Boolean);
         }
 
-        if(JSON.stringify(templateData) != JSON.stringify(temp)) setTemplateData(temp);
+        if(JSON.stringify(templateData) != JSON.stringify(temp)) setTimeout(() => setTemplateData(temp), 0)
     }
 
     const onDragEnd = (event: DragEndEvent) => {
@@ -316,7 +316,7 @@ const ListingTemplateBuilder = ({ initialData, onSubmit }: ListingTemplateBuilde
             </Flex>
             <Flex 
                 w = 'fit-content' minW = '100%' h = 'fit-content' 
-                direction={'column'} gap = '10px' p = '10px' 
+                direction={'column'} gap = '10px' p = '10px' transition={'background 300ms ease-out'}
                 bg = {draggingElement?.data?.current?.type == 'ROW' ? 'rgb(235, 235, 235, 1)' : 'white'} borderRadius={'12px'}
                 boxShadow={'0 0 0 calc(1px / var(--scale-x, 1)) rgba(63, 63, 68, 0.05), 0 1px calc(3px / var(--scale-x, 1)) 0 rgba(34, 33, 81, 0.15)'}
             >
@@ -374,7 +374,7 @@ const ListingTemplateBuilder = ({ initialData, onSubmit }: ListingTemplateBuilde
                 <DndContext 
                     sensors={sensors}
                     autoScroll
-                    //collisionDetection={closestCenter}
+                    collisionDetection={pointerWithin}
                     modifiers={[restrictToWindowEdges, ...draggingElement?.data?.current?.modifiers ?? []]}
                     onDragStart={onDragStart}
                     onDragOver={onDragOver}
@@ -559,7 +559,7 @@ const Row = ({ dragHandleProps, position, children, onRemove, style, isOver = fa
                     <IconButton onClick = {onRemove} variant={'ghost'} size = 'sm' aria-label="Delete Row Icon" icon = {<Icon as = {FaRegTrashCan} w = '17px' h = '17px' />} />
                 </Flex>
             </Flex>
-            <Flex w = '100%' bg = {isOver ? 'rgb(235, 235, 235, 1)' : 'white'} borderBottomRadius={'8px'} borderColor={'brand.borderColor'} p = '10px' gap = '10px'>
+            <Flex w = '100%' bg = {isOver ? 'rgb(235, 235, 235, 1)' : 'white'} transition={'background 300ms ease-out'} borderBottomRadius={'8px'} borderColor={'brand.borderColor'} p = '10px' gap = '10px'>
                 {children}
             </Flex>
         </Flex>
@@ -586,7 +586,7 @@ const Column = ({ dragHandleProps, position, children, onRemove, style, isOver =
                     <IconButton onClick = {onRemove} variant={'ghost'} size = 'sm' aria-label="Delete Column Icon" icon = {<Icon as = {FaRegTrashCan} w = '17px' h = '17px' />} />
                 </Flex>
             </Flex>
-            <Flex flexGrow={1} direction={'column'} w = '100%' bg = {isOver ? 'rgb(235, 235, 235, 1)' : 'white'} borderTop={'1px'} borderBottomRadius={'8px'} borderColor={'brand.borderColor'} p = '10px' gap = '10px'>
+            <Flex flexGrow={1} direction={'column'} w = '100%' bg = {isOver ? 'rgb(235, 235, 235, 1)' : 'white'} transition={'background 300ms ease-out'} borderTop={'1px'} borderBottomRadius={'8px'} borderColor={'brand.borderColor'} p = '10px' gap = '10px'>
                 {children}
             </Flex>
         </Flex>

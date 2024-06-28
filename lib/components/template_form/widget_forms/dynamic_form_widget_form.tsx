@@ -1,5 +1,5 @@
 import { Flex, FormControl, FormLabel, Text, Input, Progress, Icon, Button, IconButton } from "@chakra-ui/react";
-import { DynamicFormWidgetAnswerData, ImageCarouselWidgetData, WidgetAnswer } from "../types";
+import { DynamicFormWidgetAnswerData, ImageCarouselWidgetAnswerData, WidgetAnswer } from "../types";
 import { ChangeEvent, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { covertImageWidgetDataToStateDataType, getWidgetDefaultAnsweData } from ".";
 import { v4 as uuidv4 } from 'uuid';

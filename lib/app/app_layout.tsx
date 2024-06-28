@@ -1,11 +1,15 @@
 import { APP_BG_COLOR, APP_WIDTH, APP_MAX_WIDTH } from "./app_constants";
-import { Flex } from "@chakra-ui/react";
+import { Flex, FlexProps } from "@chakra-ui/react";
 // import Header from "../components/header";
-import React from "react";
+import React, { PropsWithChildren } from "react";
 
-const AppLayout = ({ children }: { children: React.ReactNode }) => {
+type AppLayoutProps = {
+    rootProps?: FlexProps
+} & PropsWithChildren
+
+const AppLayout = ({ children, rootProps }: AppLayoutProps) => {
     return (
-        <Flex id = 'app_layout' w = '100%' direction={'column'} alignItems={'center'} bg = {APP_BG_COLOR}>
+        <Flex id = 'app_layout' w = '100%' direction={'column'} alignItems={'center'} bg = {APP_BG_COLOR} {...rootProps}>
             {/* <Header /> */}
             <Flex 
                 maxW = {APP_MAX_WIDTH} 
