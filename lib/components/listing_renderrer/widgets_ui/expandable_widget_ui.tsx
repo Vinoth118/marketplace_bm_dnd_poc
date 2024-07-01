@@ -1,5 +1,5 @@
 "use client"
-import { Text, Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Flex } from "@chakra-ui/react";
+import { Text, Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Flex, Heading } from "@chakra-ui/react";
 import Image from "next/image";
 import { ExpandableWidgetAnswerData } from "../../template_form/types";
 
@@ -21,7 +21,7 @@ const ExpandableWidgetUI = ({ list, title }: ExpandableWidgetUIProps) => {
                                         <Flex flexShrink={0} position={'relative'} w = {['35px', '35px', '35px', '50px', '50px']} h = {['35px', '35px', '35px', '50px', '50px']}>
                                             <Image src = '/discuss-issue.svg' alt = 'logo' fill style={{ objectFit: 'contain' }} />
                                         </Flex>
-                                        <Text fontFamily={'kanit'} textAlign={'start'} fontWeight={'500'} fontSize={'18px'} color = 'black'>{item.outer}</Text>
+                                        <Heading m = '0px' textAlign={'start'} fontSize={'18px'} color = 'black'>{item.outer}</Heading>
                                     </Flex>
                                     <AccordionIcon w = '35px' h = '35px' />
                                 </AccordionButton>

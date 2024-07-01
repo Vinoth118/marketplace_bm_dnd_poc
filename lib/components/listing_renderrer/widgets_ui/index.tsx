@@ -1,9 +1,10 @@
 import { DetailsWithIconControlledWidgetData, DynamicFormWidgetData, FeatureWithIconControlledWidgetData, Template, Widget } from "../../listing_template_builder/builder_types";
-import { CustomContentWidgetAnswerData, DetailsWithIconControlledWidgetAnswerData, DetailsWithIconWidgetAnswerData, DynamicFormWidgetAnswerData, ExpandableWidgetAnswerData, FeatureWithIconControlledWidgetAnswerData, FeatureWithIconWidgetAnswerData, ImageCarouselWidgetAnswerData, ImageSectionWidgetAnswerData, WidgetAnswer } from "../../template_form/types";
-import CustomContentWidgetUI from "./custom_contentwidget_ui";
+import { CustomContentWidgetAnswerData, DetailsWithIconControlledWidgetAnswerData, DetailsWithIconWidgetAnswerData, DynamicFormWidgetAnswerData, ExpandableWidgetAnswerData, FeatureHighlighterWidgetAnswerData, FeatureWithIconControlledWidgetAnswerData, FeatureWithIconWidgetAnswerData, ImageCarouselWidgetAnswerData, ImageSectionWidgetAnswerData, WidgetAnswer } from "../../template_form/types";
+import CustomContentWidgetUI from "./custom_content_widget_ui";
 import DetailsWithIconControlledWidgetUI from "./details_with_icon_controlled_widget_ui";
 import DetailsWithIconWidgetUI from "./details_with_icon_widget_ui";
 import ExpandableWidgetUI from "./expandable_widget_ui";
+import FeatureHighlighterWidgetUI from "./feature_highlighter_widget_ui";
 import FeatureWithIconWidgetUI from "./feature_with_icon_widget_ui";
 import ImageCarouselWidgetUI from "./image_carousel_widget_ui";
 import ImageSectionWidgetUI from "./image_section_widget_ui";
@@ -65,7 +66,10 @@ const WidgetUI = ({ widget, answerData, widgetData }: WidgetUIProps) => {
             const aData = answerData.data as ExpandableWidgetAnswerData;
             return <ExpandableWidgetUI list={aData.list}  />
         }
-        case 'FEATURE_HIGHLIGHTER':
+        case 'FEATURE_HIGHLIGHTER': {
+            const aData = answerData.data as FeatureHighlighterWidgetAnswerData;
+            return <FeatureHighlighterWidgetUI list={aData.list} />
+        }
         case 'LISTING_CAROUSEL':  
         case 'LISTING_BASIC_INFO': 
         case 'CONTACT':
@@ -83,5 +87,6 @@ export {
     FeatureWithIconWidgetUI,
     CustomContentWidgetUI,
     ListingInformationsWidgetUI,
-    ExpandableWidgetUI
+    ExpandableWidgetUI,
+    FeatureHighlighterWidgetUI
 }

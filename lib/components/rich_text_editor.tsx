@@ -40,7 +40,7 @@ function RichTextEditor({ initialData = '', onChange }: RichTextEditorProps) {
 
     return (
         <CKEditor
-            editor={Editor}
+            editor={Editor as any}
             config={{ removePlugins: ['Title'] }}
             data={initialData}
             onChange={(event, editor) => {

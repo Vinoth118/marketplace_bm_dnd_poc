@@ -62,11 +62,11 @@ const ImageSectionWidgetUI = ({ imageList }: ImageSectionWidgetUIProps) => {
                     asNavFor={nav1 as any}
                     ref = {e => (sliderRef2 = e as any)}
                     focusOnSelect = {true}
-                    infinite = {false}
+                    infinite
                     autoplay = {false}
                     dots = {false}
                     slidesToShow = {4} 
-                    slidesToScroll = {2}  
+                    slidesToScroll = {1}  
                     nextArrow = {<NextArrow />}
                     prevArrow = {<PrevArrow />}
                     responsive={[
@@ -74,7 +74,7 @@ const ImageSectionWidgetUI = ({ imageList }: ImageSectionWidgetUIProps) => {
                             breakpoint: 1200,
                             settings: {
                                 slidesToShow: 4,
-                                slidesToScroll: 2,
+                                slidesToScroll: 1,
                             }
                         },
                         {
